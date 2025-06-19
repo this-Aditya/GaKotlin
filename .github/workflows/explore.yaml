@@ -20,7 +20,7 @@ jobs:
       - name: Display versions of preinstalled software
         run: |
           echo "Displaying software versions"
-          echo "git: ${{git --version}}"
+          echo "git: $(git --version)"
           echo "docker: $(docker --version || echo 'Docker not installed')"
           echo "gradle: $(gradle --version | head -n1 || echo 'Gradle not installed')"
           echo "java: $(java -version 2>&1 | head -n1)"
