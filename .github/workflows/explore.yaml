@@ -1,7 +1,6 @@
 name: GA Testing
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   inspect-env:
