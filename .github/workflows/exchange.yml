@@ -1,0 +1,32 @@
+name: exchange
+on:
+  workflow_dispatch:
+    inputs:
+      env_one:
+        description: A test env var
+        required: true
+
+jobs:
+  input-value:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Getting value of the input
+        run: |
+          echo "What is the value of input?"
+          echo "Hmm..... let me find out"
+          echo "Ohh i have a clue..."
+          echo "Should i tell this?..."
+          echo "Yes! Please go ahead"
+          echo "The value is...... ${{github.event.inputs.env_one}}
+  
+  summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: job execution summary
+        run: |
+          echo "var | value" >> GITHUB_STEP_SUMMARY
+          echo "--- | ---" >> GITHUB_STEP_SUMMARY
+          echo "user | ${{github.actor}}" >> GITHUB_STEP_SUMMARY
+          echo "repository | ${{github.repository}}" >> GITHUB_STEP_SUMMARY
+          echo "branch | ${{github.base_ref}}" >> GITHUB_STEP_SUMMARY
+          echo "attempt | ${{github.run_attempt}}" >> GITHUB_STEP_SUMMARY
