@@ -17,8 +17,8 @@ jobs:
           echo "Ohh i have a clue..."
           echo "Should i tell this?..."
           echo "Yes! Please go ahead"
-          echo "The value is...... ${{github.event.inputs.env_one}}
-  
+          echo "The value is...... ${{github.event.inputs.env_one}}"
+
   summary:
     runs-on: ubuntu-latest
     steps:
@@ -28,5 +28,4 @@ jobs:
           echo "--- | ---" >> GITHUB_STEP_SUMMARY
           echo "user | ${{github.actor}}" >> GITHUB_STEP_SUMMARY
           echo "repository | ${{github.repository}}" >> GITHUB_STEP_SUMMARY
-          echo "branch | ${{github.base_ref}}" >> GITHUB_STEP_SUMMARY
           echo "attempt | ${{github.run_attempt}}" >> GITHUB_STEP_SUMMARY
