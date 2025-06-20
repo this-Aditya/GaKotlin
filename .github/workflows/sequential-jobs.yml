@@ -7,14 +7,14 @@ on:
 jobs:
   first:
     outputs:
-      calculated_version: ${{ steps.j_version.outputs.java_version }}
+      calculated_conatiner_version: ${{ steps.container_version.outputs.docker_version }}
     runs-on: ubuntu-latest
     steps:
       - name: "Listing some data"
-        id: j_version
+        id: container_version
         run: |
           echo "The java version is"
-          echo "java_version=$(java -version)" >> $GITHUB_OUTPUT
+          echo "docker_version=$(docker -v)" >> $GITHUB_OUTPUT
 
   second:
     runs-on: ubuntu-latest
@@ -22,6 +22,6 @@ jobs:
     steps:
       - name: "Reading output of previous job"
         env:
-          CALCULATED_JAVA_VERSION: ${{ needs.first.outputs.calculated_version }}
+          CALCULATED_JAVA_VERSION: ${{ needs.first.outputs.calculated_container_version }}
         run: |
           echo "Calculated java version from last step -> $CALCULATED_JAVA_VERSION"
