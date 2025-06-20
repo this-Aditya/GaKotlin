@@ -1,0 +1,27 @@
+name: sequential-jobs
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  first:
+    outputs:
+      calculated_version: ${{ steps.j_version.outputs.java_version }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Listing some data"
+        id: j_version
+        run: |
+          echo "The java version is"
+          echo "java_version=$(java -v) >> $GITHUB_OUTPUT
+
+  second:
+    runs-on: ubuntu-latest
+    needs: first
+    steps:
+      - name: "Reading output of previous job"
+        env:
+          CALCULATED_JAVA_VERSION: ${{ needs.first.outputs.calculated_version }}
+        run: |
+          echo "Calculated java version from last step -> $CALCULATED_JAVA_VERSION"
