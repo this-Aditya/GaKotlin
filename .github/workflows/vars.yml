@@ -1,4 +1,4 @@
-name: vars.yml
+name: Workspaces
 on:
   push:
     branches: [ main, dev ]
@@ -22,15 +22,15 @@ jobs:
     steps:
       - name: Github And Runner Workspace for job-b
         run: |
-         echo "Job B -> Github Workspace is ${{GITHUB_WORKSPACE}}"  
-         echo "Job B -> Runner Workspace is ${{RUNNER_WORKSPACE}}"
+          echo "Job B -> Github Workspace is ${{GITHUB_WORKSPACE}}"  
+          echo "Job B -> Runner Workspace is ${{RUNNER_WORKSPACE}}"
 
   final:
     runs-on: ubuntu-latest
     steps:
       - name: Pre checkout workspace hunting
         run: |
-          echo "Pre checkout -> Github Workspace ${{GITHUB_WORKSPACE}}
+          echo "Pre checkout -> Github Workspace ${{GITHUB_WORKSPACE}}"
           echo "Pre checkout -> Runner Workspace ${{RUNNER_WORKSPACE}}"
 
       - name: Perform Checkout
