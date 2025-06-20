@@ -1,4 +1,5 @@
 name: Workspaces
+
 on:
   push:
     branches: [ main, dev ]
@@ -26,7 +27,7 @@ jobs:
           echo "Job B -> Runner Workspace is ${{RUNNER_WORKSPACE}}"
 
   final:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Pre checkout workspace hunting
         run: |
