@@ -31,13 +31,13 @@ jobs:
     steps:
       - name: Pre checkout workspace hunting
         run: |
-          echo "Pre checkout -> Github Workspace ${{GITHUB_WORKSPACE}}"
-          echo "Pre checkout -> Runner Workspace ${{RUNNER_WORKSPACE}}"
+          echo "Pre checkout -> Github Workspace $GITHUB_WORKSPACE"
+          echo "Pre checkout -> Runner Workspace $RUNNER_WORKSPACE"
 
       - name: Perform Checkout
         uses: actions/checkout@v3
 
       - name: Post checkout workspace hunting
         run: |
-          echo "Post checkout -> Github Workspace ${{GITHUB_WORKSPACE}}"
-          echo "Post checkout -> Runner Workspace ${{RUNNER_WORKSPACE}}"
+          echo "Post checkout -> Github Workspace $GITHUB_WORKSPACE"
+          echo "Post checkout -> Runner Workspace $RUNNER_WORKSPACE"
