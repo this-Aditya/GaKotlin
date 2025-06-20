@@ -1,0 +1,42 @@
+name: vars.yml
+on:
+  push:
+    branches: [ main, dev ]
+
+jobs:
+  workspace-info:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "Runner workspace is ${{RUNNER_WORKSPACE}}"
+
+  job-a:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Github And Runner Workspace for job-a
+        run: |
+          echo "Job A -> Runner workspace is ${{RUNNER_WORKSPACE}}"
+          echo "Job A -> Github workspace is ${{GITHUB_WORKSPACE}}"
+
+  job-b:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Github And Runner Workspace for job-b
+        run: |
+         echo "Job B -> Github Workspace is ${{GITHUB_WORKSPACE}}"  
+         echo "Job B -> Runner Workspace is ${{RUNNER_WORKSPACE}}"
+
+  final:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pre checkout workspace hunting
+        run: |
+          echo "Pre checkout -> Github Workspace ${{GITHUB_WORKSPACE}}
+          echo "Pre checkout -> Runner Workspace ${{RUNNER_WORKSPACE}}"
+
+      - name: Perform Checkout
+        uses: actions/checkout@v3
+
+      - name: Post checkout workspace hunting
+        run: |
+          echo "Post checkout -> Github Workspace ${{GITHUB_WORKSPACE}}"
+          echo "Post checkout -> Runner Workspace ${{RUNNER_WORKSPACE}}"
