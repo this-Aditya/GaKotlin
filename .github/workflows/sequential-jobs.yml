@@ -14,7 +14,7 @@ jobs:
         id: j_version
         run: |
           echo "The java version is"
-          echo "java_version=$(java -v) >> $GITHUB_OUTPUT
+          echo "java_version=$(java -version)" >> $GITHUB_OUTPUT
 
   second:
     runs-on: ubuntu-latest
