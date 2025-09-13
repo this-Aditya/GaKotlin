@@ -25,4 +25,4 @@ jobs:
         env:
           CALCULATED_DOCKER_VERSION: ${{ needs.first.outputs.calculated_container_version }}
         run: |
-          echo "Calculated java version from last step -> $CALCULATED_DOCKER_VERSION"
+          echo "Calculated docker version from last step -> $CALCULATED_DOCKER_VERSION"
