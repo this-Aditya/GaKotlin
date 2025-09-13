@@ -1,16 +1,19 @@
 name: runner_structure.yml
+#on:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    types:
+#      - opened
+#      - synchronize
+#      - reopened
+#      - ready_for_review
+#    branches:
+#      - main
+
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - ready_for_review
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   runner_info:

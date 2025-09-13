@@ -1,8 +1,10 @@
 name: Workspaces
 
 on:
-  push:
-    branches: [ main, dev ]
+  workflow_dispatch:
+
+#  push:
+#    branches: [ main, dev ]
 
 jobs:
   workspace-info:
