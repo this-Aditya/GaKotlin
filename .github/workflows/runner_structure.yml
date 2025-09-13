@@ -21,14 +21,14 @@ jobs:
     steps:
       - name: pre_checkout_pwd
         id: pre
-        run: echo "The pre checkout dir is first=$(pwd)" >> $GITHUB_OUTPUT
+        run: echo "first=$(pwd)" >> $GITHUB_OUTPUT
 
       - name: checkout
         uses: actions/checkout@v3
 
       - name: post_checkout_pwd
         id: post
-        run: echo "Pwd after checkout is second=$(pwd)" >> $GITHUB_OUTPUT
+        run: echo "second=$(pwd)" >> $GITHUB_OUTPUT
 
   getting_info:
     needs: runner_info
