@@ -1,0 +1,78 @@
+name: runner-versions-check
+on: [push, pull_request]
+
+jobs:
+  inspect-and-switch:
+    runs-on: ubuntu-latest
+    env:
+      OLD_JAVA: 11
+      SETUP_JAVA: 17
+      OLD_GRADLE: "7.6.3"
+      OLD_KOTLIN: "1.8.22"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show preinstalled Java / Gradle / Kotlin (before any setup)
+        run: |
+          echo "=== preinstalled (before any setup) ==="
+          java --version || echo "java: not found"
+          gradle --version || echo "gradle: not found"
+          ./gradlew --version || echo "./gradlew: not found"
+          kotlin --version || echo "kotlin: not found"
+
+      - name: Setup Java (Temurin ${{ env.SETUP_JAVA }})
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.SETUP_JAVA }}
+
+      - name: Show Java (after initial setup)
+        run: |
+          echo "=== java after setup-java ${SETUP_JAVA} ==="
+          java --version
+          echo "JAVA_HOME=$JAVA_HOME"
+
+      - name: Install SDKMAN (for managing Gradle/Kotlin versions)
+        run: |
+          curl -s "https://get.sdkman.io" | bash
+          # sdkman is installed in $HOME/.sdkman; we will source it in each step that uses it
+          echo "SDKMAN installed at $HOME/.sdkman"
+
+      - name: Install older Gradle via SDKMAN and show version
+        run: |
+          set -e
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sdk install gradle "${OLD_GRADLE}" || sdk use gradle "${OLD_GRADLE}"
+          echo "=== gradle (installed via sdkman ${OLD_GRADLE}) ==="
+          gradle --version
+
+      - name: Install older Kotlin via SDKMAN and show version
+        run: |
+          set -e
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sdk install kotlin "${OLD_KOTLIN}" || sdk use kotlin "${OLD_KOTLIN}"
+          echo "=== kotlin (installed via sdkman ${OLD_KOTLIN}) ==="
+          kotlin --version
+
+      - name: Show Java / Gradle / Kotlin (after SDKMAN installs)
+        run: |
+          echo "=== after sdkman installs ==="
+          java --version
+          gradle --version
+          kotlin --version
+
+      - name: Switch to older Java (Temurin ${{ env.OLD_JAVA }}) and verify
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.OLD_JAVA }}
+
+      - name: Show Java/Gradle/Kotlin (after switching Java)
+        run: |
+          echo "=== after switching java to ${OLD_JAVA} ==="
+          java --version
+          echo "JAVA_HOME=$JAVA_HOME"
+          gradle --version
+          kotlin --version
